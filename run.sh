@@ -1,2 +1,2 @@
 #!bin/bash
-date >> /tmp/report 
+date >> /tmp/report1 
