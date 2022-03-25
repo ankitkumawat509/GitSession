@@ -2,20 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clone The Repo') {
             steps {
-                echo 'Compiling..'
+                git 'https://github.com/ankitkumawat509/GitSession.git'
             }
         }
-        stage('Test') {
+        stage('Build the latest image') {
             steps {
-                echo 'Code Review..'
+                sh "docker build -t php:latest ."
             }
         }
-        stage('Deploy') {
+        stage('Push image to regitry') {
             steps {
-                echo 'Test Ececution ....'
+                sh "docker push ankitkumawat/docrepo:latest"
             }
+        stage('Deploy container ') {
+            steps {
+                sh "docker run -d -p 8082:8082 ankitkumawat/docrepo:latest"
+            }
+
         }
     }
 }
